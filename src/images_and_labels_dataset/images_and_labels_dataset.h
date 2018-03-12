@@ -14,7 +14,7 @@
  *
  * @author diproray
  */
-class TrainingData {
+class ImagesAndLabelsDataset {
 
  private:
 
@@ -28,18 +28,18 @@ class TrainingData {
 
  public:
 
-  // The default constructor for TrainingData objects.
-  TrainingData() = default;
+  // The default constructor for ImagesAndLabelsDataset objects.
+  ImagesAndLabelsDataset() = default;
 
   // The Laplace Smoothing factor for probability calculations.
   // This value can be tuned to modify the accuracy of the classifier.
-  const double kLaplaceSmoothingFactor_ = 0.5;
+  double kLaplaceSmoothingFactor_ = 0.5;
 
   /**
    * . Another constructor for TrainingData objects.
    *  It takes file names as input - the files from which training images and labels are to be read.
    */
-  explicit TrainingData(string filename_for_images, string filename_for_labels);
+  explicit ImagesAndLabelsDataset(string filename_for_images, string filename_for_labels);
 
   /**
    * . Function that reads data from a file that contains labels data,
@@ -99,7 +99,20 @@ class TrainingData {
    * @param training_data the TrainingData object that is to be printed
    * @return return the output_stream, the stream to be printed to
    */
-  friend ostream &operator<<(ostream &output_stream, const TrainingData &training_data);
+  friend ostream &operator<<(ostream &output_stream, const ImagesAndLabelsDataset &training_data);
+
+  /**
+   * . Getter for vector of images
+   * @return the vector of images (ImageData objects)
+   */
+  std::vector<ImageData> GetVectorOfImages();
+
+  /**
+   * . Getter for vector of labels/classes
+   * @return the vector of labels
+   */
+  std::vector<int> GetVectorOfLabels();
+
 };
 
 #endif //NAIVEBAYES_TRAINING_DATA_H

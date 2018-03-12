@@ -2,11 +2,11 @@
 // Created by Dipro Ray on 3/11/18.
 //
 
-#include "training_data.h"
+#include "images_and_labels_dataset.h"
 #include <utility>
 
 // This file contains implementations of the functions of the
-// TrainingData class ( Class that encapsulates all the data used for training the model.
+// ImagesAndLabelsDataset class ( Class that encapsulates all the data used for training the model.
 // This includes the entire set of images encoded as 2D arrays contained in ImageData objects,
 // and the entire set of labels for the training images)
 
@@ -18,7 +18,7 @@
  * of the TrainingData object.
  * @param filename the file from which label data are to be read
  */
-void TrainingData::GenerateVectorOfLabelsFromFileData(string filename) {
+void ImagesAndLabelsDataset::GenerateVectorOfLabelsFromFileData(string filename) {
 
   // Initialise an ifstream and open the desired file.
 
@@ -53,7 +53,7 @@ void TrainingData::GenerateVectorOfLabelsFromFileData(string filename) {
  * of the TrainingData object.
  * @param filename the file from which images are to be read
  */
-void TrainingData::GenerateVectorOfImagesFromFileData(string filename) {
+void ImagesAndLabelsDataset::GenerateVectorOfImagesFromFileData(string filename) {
 
   // Initialise an ifstream and open the desired file.
 
@@ -108,7 +108,7 @@ void TrainingData::GenerateVectorOfImagesFromFileData(string filename) {
  * @return a double value, which is the probability of finding value_at_position at position (row_index, column_index)
  *         in an image whose label/class is class_value.
  */
-double TrainingData::CalculateFeatureProbabilityAtIndexForClass(int row_index,
+double ImagesAndLabelsDataset::CalculateFeatureProbabilityAtIndexForClass(int row_index,
                                                                 int column_index,
                                                                 int class_value,
                                                                 int desired_value_at_position) {
@@ -157,7 +157,7 @@ double TrainingData::CalculateFeatureProbabilityAtIndexForClass(int row_index,
  * @param class_value the desired value of the label/class
  * @return a double value, which is the probability of finding class_value among values in vector_of_training_image_labels_.
  */
-double TrainingData::CalculateProbabilityOfClassInLabels(int class_value) {
+double ImagesAndLabelsDataset::CalculateProbabilityOfClassInLabels(int class_value) {
 
   // Initialize an int variables that stores the number of occurrences
   // of class_value as the label's value.
@@ -190,7 +190,7 @@ double TrainingData::CalculateProbabilityOfClassInLabels(int class_value) {
  *
  * @return a vector of doubles, which is a vector of probabilities for label/class values 0 through 9.
  */
-std::vector<double> TrainingData::GenerateVectorOfPriorsForLabels() {
+std::vector<double> ImagesAndLabelsDataset::GenerateVectorOfPriorsForLabels() {
 
   // Initialize a vector of doubles,
   // that will store the probabilities of encountering label/class values 0 through 9
@@ -219,10 +219,10 @@ std::vector<double> TrainingData::GenerateVectorOfPriorsForLabels() {
  *
  *  Uses other class functions. It is just a fast way to combine everything into one and execute.
  */
-TrainingData::TrainingData(string filename_for_images, string filename_for_labels) {
+ImagesAndLabelsDataset::ImagesAndLabelsDataset(string filename_for_images, string filename_for_labels) {
 
   // Generate vectors of training images and training image labels
-  // for the TrainingData object.
+  // for the ImagesAndLabelsDataset object.
 
   // Usage of std::move here.
   // For reference, see http://en.cppreference.com/w/cpp/utility/move
@@ -241,7 +241,7 @@ TrainingData::TrainingData(string filename_for_images, string filename_for_label
    * @param training_data the TrainingData object that is to be printed
    * @return return the output_stream, the stream to be printed to
    */
-  ostream &operator<<(ostream &output_stream, const TrainingData &training_data) {
+  ostream &operator<<(ostream &output_stream, const ImagesAndLabelsDataset &training_data) {
 
   // Print all the training images.
 
@@ -262,4 +262,22 @@ TrainingData::TrainingData(string filename_for_images, string filename_for_label
   // Return the ostream.
 
   return output_stream;
+}
+
+/**
+ * . Getter for vector of images
+ * @return the vector of images (ImageData objects)
+ */
+std::vector<ImageData> ImagesAndLabelsDataset::GetVectorOfImages() {
+
+  return vector_of_training_image_objects_;
+}
+
+/**
+ * . Getter for vector of labels/classes
+ * @return the vector of labels
+ */
+std::vector<int> ImagesAndLabelsDataset::GetVectorOfLabels() {
+
+  return vector_of_training_image_labels_;
 }

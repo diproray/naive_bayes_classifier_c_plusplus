@@ -5,6 +5,12 @@
 #include <fstream>
 #include "image_data.h"
 
+// This file contains implementations of the functions of the
+// ImageData class (Class that encapsulates data pertaining to an image and relevant functions
+// that operate on them).
+
+
+
 /**
  * . Setter for image_as_2d_array_
  * @param image the image (a 2d array) to be set to

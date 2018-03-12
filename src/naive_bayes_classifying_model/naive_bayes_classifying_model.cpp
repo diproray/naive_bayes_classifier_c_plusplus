@@ -6,6 +6,10 @@
 #include "../utils.h"
 #include <utility>
 
+// This file contains implementations of the functions for
+// NaiveBayesClassifier Model - the class that stores all the probabilities and priors data
+// and carries out the classification.
+
 /**
  * . Function that generates the features probabilities matrix for the model.
  * It uses a ImagesAndLabelsDataset object to do so.

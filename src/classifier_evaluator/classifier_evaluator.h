@@ -5,7 +5,7 @@
 #ifndef NAIVEBAYES_EVALUATOR_H
 #define NAIVEBAYES_EVALUATOR_H
 
-#include "naive_bayes_classifying_model/naive_bayes_classifying_model.h"
+#include "../naive_bayes_classifying_model/naive_bayes_classifying_model.h"
 class ClassifierEvaluator {
 
  private:

@@ -5,7 +5,7 @@
 
 #include <iomanip>
 #include "naive_bayes_classifying_model/naive_bayes_classifying_model.cpp"
-#include "classifier_evaluator.cpp"
+#include "classifier_evaluator/classifier_evaluator.cpp"
 
 int main() {
 

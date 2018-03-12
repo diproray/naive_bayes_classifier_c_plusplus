@@ -4,6 +4,7 @@
 
 #include "images_and_labels_dataset.h"
 #include <utility>
+#include "../utils/utils.cpp"
 
 // This file contains implementations of the functions of the
 // ImagesAndLabelsDataset class ( Class that encapsulates all the data used for training the model.
@@ -109,9 +110,9 @@ void ImagesAndLabelsDataset::GenerateVectorOfImagesFromFileData(string filename)
  *         in an image whose label/class is class_value.
  */
 double ImagesAndLabelsDataset::CalculateFeatureProbabilityAtIndexForClass(int row_index,
-                                                                int column_index,
-                                                                int class_value,
-                                                                int desired_value_at_position) {
+                                                                          int column_index,
+                                                                          int class_value,
+                                                                          int desired_value_at_position) {
 
   // Initialize int variables to store the counts of class_value and desired value at position.
 
@@ -144,8 +145,8 @@ double ImagesAndLabelsDataset::CalculateFeatureProbabilityAtIndexForClass(int ro
   // Probability calculation using the formula given in the documentation.
 
   double desiredFeatureProbability =
-      (kLaplaceSmoothingFactor_ + count_of_desired_value_at_desired_position)
-          / (2 * kLaplaceSmoothingFactor_ + count_of_occurrences_of_class_value);
+      (laplace_smoothing_factor_ + count_of_desired_value_at_desired_position)
+          / (2 * laplace_smoothing_factor_ + count_of_occurrences_of_class_value);
 
   return desiredFeatureProbability;
 }
@@ -219,7 +220,9 @@ std::vector<double> ImagesAndLabelsDataset::GenerateVectorOfPriorsForLabels() {
  *
  *  Uses other class functions. It is just a fast way to combine everything into one and execute.
  */
-ImagesAndLabelsDataset::ImagesAndLabelsDataset(string filename_for_images, string filename_for_labels) {
+ImagesAndLabelsDataset::ImagesAndLabelsDataset(string filename_for_images,
+                                               string filename_for_labels,
+                                               double laplace_smoothing_factor) {
 
   // Generate vectors of training images and training image labels
   // for the ImagesAndLabelsDataset object.
@@ -231,24 +234,25 @@ ImagesAndLabelsDataset::ImagesAndLabelsDataset(string filename_for_images, strin
 
   GenerateVectorOfImagesFromFileData(std::move(filename_for_images));
   GenerateVectorOfLabelsFromFileData(std::move(filename_for_labels));
+  laplace_smoothing_factor_ = laplace_smoothing_factor;
 
 }
 
-  /**
-   * . Function that overloads the << operator to print out the contents of TrainingData:
-   * the entire vector of images encoded as 2D arrays, and the vector of labels.
-   * @param output_stream the stream to print to
-   * @param training_data the TrainingData object that is to be printed
-   * @return return the output_stream, the stream to be printed to
-   */
-  ostream &operator<<(ostream &output_stream, const ImagesAndLabelsDataset &training_data) {
+/**
+ * . Function that overloads the << operator to print out the contents of TrainingData:
+ * the entire vector of images encoded as 2D arrays, and the vector of labels.
+ * @param output_stream the stream to print to
+ * @param training_data the TrainingData object that is to be printed
+ * @return return the output_stream, the stream to be printed to
+ */
+ostream &operator<<(ostream &output_stream, const ImagesAndLabelsDataset &training_data) {
 
   // Print all the training images.
 
   cout << "Training Images: " << '\n';
 
   for (unsigned long i = 0; i < training_data.vector_of_training_image_objects_.size(); i++) {
-  cout << "Image " << i << ": " << std::endl << training_data.vector_of_training_image_objects_.at(i) << '\n';
+    cout << "Image " << i << ": " << std::endl << training_data.vector_of_training_image_objects_.at(i) << '\n';
   }
 
   // Print all the labels for the training images.

@@ -26,20 +26,22 @@ class ImagesAndLabelsDataset {
   // at the corresponding position in vector_of_training_image_objects_.
   std::vector<int> vector_of_training_image_labels_;
 
+  // The Laplace Smoothing factor for probability calculations.
+  // This value can be tuned to modify the accuracy of the classifier.
+  double laplace_smoothing_factor_;
+
  public:
 
   // The default constructor for ImagesAndLabelsDataset objects.
   ImagesAndLabelsDataset() = default;
 
-  // The Laplace Smoothing factor for probability calculations.
-  // This value can be tuned to modify the accuracy of the classifier.
-  double kLaplaceSmoothingFactor_ = 0.5;
-
   /**
    * . Another constructor for TrainingData objects.
    *  It takes file names as input - the files from which training images and labels are to be read.
    */
-  explicit ImagesAndLabelsDataset(string filename_for_images, string filename_for_labels);
+  explicit ImagesAndLabelsDataset(string filename_for_images,
+                                  string filename_for_labels,
+                                  double laplace_smoothing_factor);
 
   /**
    * . Function that reads data from a file that contains labels data,

@@ -3,7 +3,7 @@
 //
 
 #include "naive_bayes_classifying_model.h"
-#include "../utils.h"
+#include "../utils/utils.h"
 #include <utility>
 
 // This file contains implementations of the functions for

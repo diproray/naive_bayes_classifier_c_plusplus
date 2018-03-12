@@ -3,20 +3,28 @@
 //
 
 
-#include "training_data/training_data.cpp"
+#include "naive_bayes_classifying_model/naive_bayes_classifying_model.cpp"
 
 int main() {
 
-  TrainingData training_data_object = TrainingData("../data/trainingimages", "../data/traininglabels");
-  cout << training_data_object;
+  NaiveBayesClassifyingModel model = NaiveBayesClassifyingModel("../data/probabilities", "../data/priors", "load");
 
-  /*
-  training_data_object.GenerateVectorOfImagesFromFileData("../data/trainingimages");
+  ImagesAndLabelsDataset test_data = ImagesAndLabelsDataset("../data/testimages", "../data/testlabels");
 
-  training_data_object.GenerateVectorOfLabelsFromFileData("../data/traininglabels");
-  cout << '\n';
-  training_data_object.GenerateVectorOfPriorsForLabels();
-   */
+
+  int count = 0;
+
+  for (unsigned long i = 0; i < test_data.GetVectorOfImages().size(); i++) {
+
+    int estimated_class = model.Classifier(test_data.GetVectorOfImages().at(i));
+
+    cout << "Number: " << i << "| Classified as: " << estimated_class << "| Actually is: " << test_data.GetVectorOfLabels().at(i) << std::endl;
+    if (estimated_class == test_data.GetVectorOfLabels().at(i)) {
+      count ++;
+    }
+  }
+
+  cout << '\n' << "Percentage of Accuracy: " << (double) count / 10 << "%";
 
 }
 

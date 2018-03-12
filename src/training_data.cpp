@@ -41,7 +41,6 @@ void TrainingData::GenerateVectorOfLabelsFromFileData(string filename) {
 
   while (file_reader >> value) {
     vector_of_training_image_labels_.push_back(value);
-    cout << value << '\n';
   }
 
   // Close the ifstream. [Deallocation of resources]
@@ -225,7 +224,42 @@ TrainingData::TrainingData(string filename_for_images, string filename_for_label
   // Generate vectors of training images and training image labels
   // for the TrainingData object.
 
+  // Usage of std::move here.
+  // For reference, see http://en.cppreference.com/w/cpp/utility/move
+  // std::move "converts" lvalues / rvalues into xvalues - telling the compiler
+  // that it is OK to move it around instead of creating copies.
+
   GenerateVectorOfImagesFromFileData(std::move(filename_for_images));
   GenerateVectorOfLabelsFromFileData(std::move(filename_for_labels));
 
+}
+
+  /**
+   * . Function that overloads the << operator to print out the contents of TrainingData:
+   * the entire vector of images encoded as 2D arrays, and the vector of labels.
+   * @param output_stream the stream to print to
+   * @param training_data the TrainingData object that is to be printed
+   * @return return the output_stream, the stream to be printed to
+   */
+  ostream &operator<<(ostream &output_stream, const TrainingData &training_data) {
+
+  // Print all the training images.
+
+  cout << "Training Images: " << '\n';
+
+  for (unsigned long i = 0; i < training_data.vector_of_training_image_objects_.size(); i++) {
+  cout << "Image " << i << ": " << std::endl << training_data.vector_of_training_image_objects_.at(i) << '\n';
+  }
+
+  // Print all the labels for the training images.
+
+  cout << '\n' << "Labels for the Training Images: " << std::endl;
+
+  for (unsigned long i = 0; i < training_data.vector_of_training_image_labels_.size(); i++) {
+    cout << "Label for Image " << i << ": " << training_data.vector_of_training_image_labels_.at(i) << '\n';
+  }
+
+  // Return the ostream.
+
+  return output_stream;
 }

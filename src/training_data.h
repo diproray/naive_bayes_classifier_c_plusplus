@@ -92,5 +92,14 @@ class TrainingData {
    */
   std::vector<double> GenerateVectorOfPriorsForLabels();
 
+  /**
+   * . Function that overloads the << operator to print out the contents of TrainingData:
+   * the entire vector of images encoded as 2D arrays, and the vector of labels.
+   * @param output_stream the stream to print to
+   * @param training_data the TrainingData object that is to be printed
+   * @return return the output_stream, the stream to be printed to
+   */
+  friend ostream &operator<<(ostream &output_stream, const TrainingData &training_data);
 };
+
 #endif //NAIVEBAYES_TRAINING_DATA_H

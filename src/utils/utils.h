@@ -6,4 +6,5 @@
 #define NAIVEBAYES_UTILS_H
 
 void PrintProgressBar(unsigned long image_index, int size);
+
 #endif //NAIVEBAYES_UTILS_H

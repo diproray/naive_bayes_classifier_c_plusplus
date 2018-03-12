@@ -40,10 +40,10 @@ class ImageData {
  * . Getter for image_as_2d_array_
  * @return  the image, as a 2D array, with each value as 0 or 1
  */
-  int ** GetImageAs2dArray() const;
+  int **GetImageAs2dArray() const;
 
   // The dimension of an image width/length. For this program, it is ALWAYS 28.
-  static const int kImageSize = 28;
+  static const int kImageSize_ = 28;
 
 /**
  * . Setter for image_as_2d_array_
@@ -55,7 +55,7 @@ class ImageData {
  * . Setter for image, using the data from a file
  * @param filename the file from which the data is to be taken.
  */
-  void SetImageFromFile(const string & filename);
+  void SetImageFromFile(const string &filename);
 
 /**
  * . Function that overloads the input >> operator to read an entire image and store it into
@@ -64,7 +64,7 @@ class ImageData {
  * @param image_data the ImageData object that is to be read
  * @return return the input_stream, the stream being read from
  */
-  friend istream & operator >>(istream & input_stream, ImageData & image_data);
+  friend istream &operator>>(istream &input_stream, ImageData &image_data);
 
 /**
  * . Function that overloads the << operator to print out the entire 2D array of an image.
@@ -72,7 +72,7 @@ class ImageData {
  * @param image_data the ImageData object that is to be printed
  * @return return the output_stream, the stream to be printed to
  */
-  friend ostream & operator <<(ostream & output_stream, const ImageData & image_data);
+  friend ostream &operator<<(ostream &output_stream, const ImageData &image_data);
 
 };
 

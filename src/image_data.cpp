@@ -9,14 +9,14 @@
  * . Setter for image_as_2d_array_
  * @param image the image (a 2d array) to be set to
  */
-void ImageData::SetImageAs2dArray(int image[kImageSize][kImageSize]) {
+void ImageData::SetImageAs2dArray(int image[kImageSize_][kImageSize_]) {
 
   // Using a nested for loop, copy each value of image into the respective
   // position at image_as_2d_array_.
   // (This is the only way to copy arrays in C++, it doesn't allow making a deep copy easily.)
 
-  for (int row_index = 0; row_index < kImageSize; row_index++) {
-    for (int column_index = 0; column_index < kImageSize; column_index++) {
+  for (int row_index = 0; row_index < kImageSize_; row_index++) {
+    for (int column_index = 0; column_index < kImageSize_; column_index++) {
 
       image_as_2d_array_[row_index][column_index] = image[row_index][column_index];
 
@@ -29,18 +29,18 @@ void ImageData::SetImageAs2dArray(int image[kImageSize][kImageSize]) {
  * . Getter for image_as_2d_array_
  * @return  the image, as a 2D array, with each value as 0 or 1
  */
-int ** ImageData::GetImageAs2dArray() const {
+int **ImageData::GetImageAs2dArray() const {
 
   // Initialize a new array of pointers.
-  auto ** image = new int * [kImageSize];
+  auto **image = new int *[kImageSize_];
 
   // Point respective pointers in image to the appropriate positions in image_as_2d_array_.
-  for (int row_index = 0; row_index < kImageSize; row_index++) {
+  for (int row_index = 0; row_index < kImageSize_; row_index++) {
 
     // The below line allows the particular pointer to point to an array (i.e. 1 row of the 2d array).
-    image[row_index] = new int[kImageSize];
+    image[row_index] = new int[kImageSize_];
 
-    for (int column_index = 0; column_index < kImageSize; column_index++) {
+    for (int column_index = 0; column_index < kImageSize_; column_index++) {
       image[row_index][column_index] = image_as_2d_array_[row_index][column_index];
     }
   }
@@ -54,14 +54,14 @@ int ** ImageData::GetImageAs2dArray() const {
  * @param image_data the ImageData object that is to be printed
  * @return return the output_stream, the stream to be printed to
  */
-ostream & operator <<(ostream & output_stream, const ImageData & image_data) {
+ostream &operator<<(ostream &output_stream, const ImageData &image_data) {
 
   // In a nested for loop,
   // Print each value in the 2D array.
 
-  for (int row_index = 0; row_index < image_data.kImageSize; row_index++) {
+  for (int row_index = 0; row_index < image_data.kImageSize_; row_index++) {
 
-    for (int column_index = 0; column_index < image_data.kImageSize; column_index++) {
+    for (int column_index = 0; column_index < image_data.kImageSize_; column_index++) {
       output_stream << image_data.image_as_2d_array_[row_index][column_index];
     }
 
@@ -78,16 +78,16 @@ ostream & operator <<(ostream & output_stream, const ImageData & image_data) {
  * @param image_data the ImageData object that is to be read
  * @return return the input_stream, the stream being read from
  */
-istream & operator >>(istream & input_stream, ImageData & image_data) {
+istream &operator>>(istream &input_stream, ImageData &image_data) {
 
   int image[28][28];
 
   string line;
 
-  // For kImageSize number of times,
+  // For kImageSize_ number of times,
   // read in each line, through a loop.
 
-  for (int line_number = 0; line_number < image_data.kImageSize; line_number++) {
+  for (int line_number = 0; line_number < image_data.kImageSize_; line_number++) {
 
     std::getline(input_stream, line);
 
@@ -95,7 +95,7 @@ istream & operator >>(istream & input_stream, ImageData & image_data) {
     // Iterate through the entire line, placing value 0 into the respective position in the array if
     // the character is ' ', or 1 if the character is '#' or '+'.
 
-    for (unsigned long column_index = 0; column_index < image_data.kImageSize; column_index++) {
+    for (unsigned long column_index = 0; column_index < image_data.kImageSize_; column_index++) {
 
       int value_to_be_set_to = 0;
 
@@ -117,14 +117,12 @@ istream & operator >>(istream & input_stream, ImageData & image_data) {
  * . Setter for image, using the data from a file
  * @param filename the file from which the data is to be taken.
  */
-void ImageData::SetImageFromFile(const string &filename){
+void ImageData::SetImageFromFile(const string &filename) {
 
   ImageData image = ImageData();
 
   // Open file using ifstream, and read data from there.
-  ifstream file (filename);
-
-  string line;
+  ifstream file(filename);
 
   // The below line invokes the overloaded input operator.
   file >> image;

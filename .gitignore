@@ -1,6 +1,9 @@
 # Prerequisites
 *.d
 
+# Data Files
+data/*
+
 # Compiled Object files
 *.slo
 *.lo
@@ -31,5 +34,3 @@
 *.out
 *.app
 
-# Data Files
-data/*

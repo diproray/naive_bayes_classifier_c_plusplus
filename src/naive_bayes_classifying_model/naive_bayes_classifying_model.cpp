@@ -6,6 +6,12 @@
 
 #include <utility>
 
+/**
+ * . Function that generates the features probabilities matrix for the model.
+ * It uses a ImagesAndLabelsDataset object to do so.
+ *
+ * @param training_data the ImagesAndLabels dataset used
+ */
 void NaiveBayesClassifyingModel::GenerateFeatureProbabilityMatrixAndPriorsVector(ImagesAndLabelsDataset &training_data) {
 
   cout << "Generating the Feature Probability Matrix: " << std::endl;
@@ -36,6 +42,11 @@ void NaiveBayesClassifyingModel::GenerateFeatureProbabilityMatrixAndPriorsVector
 
 }
 
+/**
+ * . Helper function that prints a nice progress bar while the huge amount of data is loading.
+ *
+ * @param row_index parameter deciding part of progress bar to be shown
+ */
 void NaiveBayesClassifyingModel::print_progress_bar(int row_index) {
 
   auto number_of_hashes = (int) (((double) (row_index + 1) / 28) * 20);
@@ -52,6 +63,12 @@ void NaiveBayesClassifyingModel::print_progress_bar(int row_index) {
   cout << "]" << std::endl;
 }
 
+/**
+ * . Function that writes the probabilities and priors data to files.
+ *
+ * @param filename_for_probability_matrix the file path to the file in which the probabilities are to be stored
+ * @param filename_for_priors_vector the file path to the file in which the priors are to be stored
+ */
 void NaiveBayesClassifyingModel::SaveModelFeatureProbabilityMatrixAndPriorsVectorToFiles(string filename_for_probability_matrix,
                                                                                          string filename_for_priors_vector) {
 
@@ -99,6 +116,13 @@ void NaiveBayesClassifyingModel::SaveModelFeatureProbabilityMatrixAndPriorsVecto
   cout << "Saved Priors Vector to: " << filename_for_priors_vector << '\n';
 }
 
+
+/**
+ * .  Function that reads the probabilities and priors data to files.
+ *
+ * @param filename_for_probability_matrix the file path to the file in which the probabilities were stored previously
+ * @param filename_for_priors_vector the file path to the file in which the priors were stored previously
+ */
 void NaiveBayesClassifyingModel::LoadModelFeatureProbabilityMatrixAndPriorsVectorFromFiles(string filename_for_probability_matrix,
                                                                                            string filename_for_priors_vector) {
 
@@ -151,6 +175,12 @@ void NaiveBayesClassifyingModel::LoadModelFeatureProbabilityMatrixAndPriorsVecto
   cout << "Your NaiveBayesClassifyingModel is now loaded" << '\n';
 }
 
+/**
+ * . Function that classifies an image into one of the labels.
+ *
+ * @param image_to_be_classified the image to classifiy into a label
+ * @return the classified label value
+ */
 int NaiveBayesClassifyingModel::Classifier(ImageData image_to_be_classified) {
 
   std::vector<double> posteriors;
@@ -178,6 +208,14 @@ int NaiveBayesClassifyingModel::Classifier(ImageData image_to_be_classified) {
 
 }
 
+/**
+ * . Constructor for a NaiveBayesClassifyingModel object, in which probabilities and priors
+ * are found from previously stored model data, extracted out of files.
+ *
+ * @param filename_for_stored_probabilities the file path to the file in which the probabilities were stored previously
+ * @param filename_for_stored_priors_vector the file path to the file in which the priors were stored previously
+ * @param method set to "load". This argument isn't actually used. Placed to differentiate the constructors.
+ */
 NaiveBayesClassifyingModel::NaiveBayesClassifyingModel(string filename_for_stored_probabilities,
                                                        string filename_for_stored_priors_vector,
                                                        string method) {
@@ -187,6 +225,13 @@ NaiveBayesClassifyingModel::NaiveBayesClassifyingModel(string filename_for_store
 
 }
 
+/**
+ * . Constructor for a NaiveBayesClassifyingModel object, in which probabilities and priors
+ * are found from training data, extracted out of files.
+ *
+ * @param filename_for_images the file path to the file in which the training images are stored
+ * @param filename_for_labels the file path to the file in which the training images'labels are stored.
+ */
 NaiveBayesClassifyingModel::NaiveBayesClassifyingModel(string filename_for_images, string filename_for_labels) {
 
   ImagesAndLabelsDataset

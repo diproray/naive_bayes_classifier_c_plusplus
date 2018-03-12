@@ -5,7 +5,7 @@
 #ifndef NAIVEBAYES_TRAINING_DATA_H
 #define NAIVEBAYES_TRAINING_DATA_H
 
-#include "image_data.cpp"
+#include "../image_data/image_data.cpp"
 
 /**
  * . Class that encapsulates all the data used for training the model.

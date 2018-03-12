@@ -3,8 +3,14 @@
 //
 
 #include "training_data.h"
-
 #include <utility>
+
+// This file contains implementations of the functions of the
+// TrainingData class ( Class that encapsulates all the data used for training the model.
+// This includes the entire set of images encoded as 2D arrays contained in ImageData objects,
+// and the entire set of labels for the training images)
+
+
 
 /**
  * . Function that reads data from a file that contains labels data,
@@ -14,13 +20,22 @@
  */
 void TrainingData::GenerateVectorOfLabelsFromFileData(string filename) {
 
+  // Initialise an ifstream and open the desired file.
+
   std::ifstream file_reader;
   file_reader.open(filename);
+
+  // If the file doesn't exist,
+  // Then, an error message is printed and the system exits.
 
   if (!file_reader) {
     cout << "File is invalid.";
     exit;
   }
+
+  // If the file exists,
+  // Read in an integer, and push it into the vector_of_training_image_labels_.
+  // Keep doing this till eof is reached.
 
   int value;
 
@@ -29,6 +44,7 @@ void TrainingData::GenerateVectorOfLabelsFromFileData(string filename) {
     cout << value << '\n';
   }
 
+  // Close the ifstream. [Deallocation of resources]
   file_reader.close();
 }
 
@@ -40,23 +56,43 @@ void TrainingData::GenerateVectorOfLabelsFromFileData(string filename) {
  */
 void TrainingData::GenerateVectorOfImagesFromFileData(string filename) {
 
+  // Initialise an ifstream and open the desired file.
+
   std::ifstream file_reader;
   file_reader.open(filename);
+
+  // If the file doesn't exist,
+  // Then, an error message is printed and the system exits.
 
   if (!file_reader) {
     cout << "File is invalid.";
     exit;
   }
 
-  for (auto i = 1; i != file_reader.eof(); i += 28) {
+  // From the file,
+  // Read in an ImageData object.
+  // (This will call the overloaded >> operator of ImageData.)
+  // Push it into the vector: vector_of_training_image_objects_
+  // Keep doing this till the eof is reached.
+
+  while (!file_reader.eof()) {
 
     ImageData image_object;
+    string line;
     file_reader >> image_object;
     vector_of_training_image_objects_.push_back(image_object);
 
   }
 
+  // Close the ifstream.
   file_reader.close();
+
+  // Pop the last element (ImageData object) in the vector.
+  // The last element is always a blank image and so, it needs to be removed.
+  // (This is because, I'm not sure why, but, after adding all images to the vector from the file,
+  // a blank image gets added. So, I just remove that last object.)
+
+  vector_of_training_image_objects_.pop_back();
 }
 
 /**
@@ -78,13 +114,25 @@ double TrainingData::CalculateFeatureProbabilityAtIndexForClass(int row_index,
                                                                 int class_value,
                                                                 int desired_value_at_position) {
 
+  // Initialize int variables to store the counts of class_value and desired value at position.
+
   int count_of_occurrences_of_class_value = 0;
   int count_of_desired_value_at_desired_position = 0;
 
+  // Loop through all the labels in the vector containing all labels,
+  // If the label is the desired value, go further and count the occurrences of the desired value at
+  // the desired position.
+
   for (unsigned long index = 0; index < vector_of_training_image_labels_.size(); index++) {
+
+    // If the desired class value is the label,
+    // increment its count by 1.
 
     if (vector_of_training_image_labels_.at(index) == class_value) {
       count_of_occurrences_of_class_value++;
+
+      // If the desired value is present at the desired position,
+      // increment the count by 1.
 
       const ImageData &image_object = vector_of_training_image_objects_.at(index);
       if (image_object.GetImageAs2dArray()[row_index][column_index] == desired_value_at_position) {
@@ -93,6 +141,8 @@ double TrainingData::CalculateFeatureProbabilityAtIndexForClass(int row_index,
 
     }
   }
+
+  // Probability calculation using the formula given in the documentation.
 
   double desiredFeatureProbability =
       (kLaplaceSmoothingFactor_ + count_of_desired_value_at_desired_position)
@@ -110,7 +160,14 @@ double TrainingData::CalculateFeatureProbabilityAtIndexForClass(int row_index,
  */
 double TrainingData::CalculateProbabilityOfClassInLabels(int class_value) {
 
+  // Initialize an int variables that stores the number of occurrences
+  // of class_value as the label's value.
+
   int count_of_occurrences_of_class_value = 0;
+
+  // Loop through all labels in the vector.
+  // If the label value matches class_value,
+  // increment the count value by 1.
 
   for (auto label: vector_of_training_image_labels_) {
 
@@ -120,8 +177,12 @@ double TrainingData::CalculateProbabilityOfClassInLabels(int class_value) {
 
   }
 
-  double
-      desiredPriorProbability = (double) count_of_occurrences_of_class_value / vector_of_training_image_labels_.size();
+  // Calculate the probability using formula provided in the documentation.
+  // Then, return it.
+
+  double desiredPriorProbability =
+      (double) count_of_occurrences_of_class_value / vector_of_training_image_labels_.size();
+
   return desiredPriorProbability;
 }
 
@@ -132,7 +193,14 @@ double TrainingData::CalculateProbabilityOfClassInLabels(int class_value) {
  */
 std::vector<double> TrainingData::GenerateVectorOfPriorsForLabels() {
 
+  // Initialize a vector of doubles,
+  // that will store the probabilities of encountering label/class values 0 through 9
+  // in vector_of_training_image_labels_.
+
   std::vector<double> vector_of_priors;
+
+  // Loop through all possible class values 0 - 9 (provided in the documentation).
+  // Calculate the probability of the occurrence of each.
 
   for (int class_value = 0; class_value < 10; class_value++) {
 
@@ -141,14 +209,21 @@ std::vector<double> TrainingData::GenerateVectorOfPriorsForLabels() {
 
   }
 
+  // Return the vector containing the probabilities.
+
   return vector_of_priors;
 }
 
 /**
  * . Another constructor for TrainingData objects.
  *  It takes file names as input - the files from which training images and labels are to be read.
+ *
+ *  Uses other class functions. It is just a fast way to combine everything into one and execute.
  */
-explicit TrainingData::TrainingData(string filename_for_images, string filename_for_labels) {
+TrainingData::TrainingData(string filename_for_images, string filename_for_labels) {
+
+  // Generate vectors of training images and training image labels
+  // for the TrainingData object.
 
   GenerateVectorOfImagesFromFileData(std::move(filename_for_images));
   GenerateVectorOfLabelsFromFileData(std::move(filename_for_labels));

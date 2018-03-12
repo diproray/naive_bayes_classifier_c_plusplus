@@ -41,8 +41,11 @@ class NaiveBayesClassifyingModel {
    *
    * @param filename_for_images the file path to the file in which the training images are stored
    * @param filename_for_labels the file path to the file in which the training images'labels are stored.
+   * @param laplace_smoothing_factor the Laplace smoothing factor
    */
-  explicit NaiveBayesClassifyingModel(string filename_for_images, string filename_for_labels);
+  explicit NaiveBayesClassifyingModel(string filename_for_images,
+                                      string filename_for_labels,
+                                      double laplace_smoothing_factor);
 
   /**
    * . Constructor for a NaiveBayesClassifyingModel object, in which probabilities and priors
@@ -90,12 +93,6 @@ class NaiveBayesClassifyingModel {
    */
   int Classifier(ImageData image_to_be_classified);
 
-  /**
-   * . Helper function that prints a nice progress bar while the huge amount of data is loading.
-   *
-   * @param row_index parameter deciding part of progress bar to be shown
-   */
-  void print_progress_bar(int row_index);
 };
 
 #endif //NAIVEBAYES_MODEL_H

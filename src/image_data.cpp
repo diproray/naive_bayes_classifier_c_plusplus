@@ -82,6 +82,14 @@ istream &operator>>(istream &input_stream, ImageData &image_data) {
 
   int image[28][28];
 
+  // Set all values in the 2D array to zero.
+
+  for (int i = 0; i < 28; i++) {
+    for (int j = 0; j < 28; j++) {
+      image[i][j] = 0;
+    }
+  }
+
   string line;
 
   // For kImageSize_ number of times,
@@ -91,20 +99,25 @@ istream &operator>>(istream &input_stream, ImageData &image_data) {
 
     std::getline(input_stream, line);
 
+    // If the line is empty, going into the below loop can cause errors.
+    // So, it is skipped. (The values for the zero remain zero, anyway.)
+
+    if (line.empty()) {
+      continue;
+    }
+
     // For each line,
-    // Iterate through the entire line, placing value 0 into the respective position in the array if
-    // the character is ' ', or 1 if the character is '#' or '+'.
+    // Iterate through the entire line, placing value 1 if the character is '#' or '+'.
+    // Otherwise, the value remains zero.
 
-    for (unsigned long column_index = 0; column_index < image_data.kImageSize_; column_index++) {
-
-      int value_to_be_set_to = 0;
+    for (unsigned long column_index = 0; column_index < line.size(); column_index++) {
 
       if (line.at(column_index) == '+' || line.at(column_index) == '#') {
-        value_to_be_set_to = 1;
+        image[line_number][column_index] = 1;
       }
 
-      image[line_number][column_index] = value_to_be_set_to;
     }
+
   }
 
   // Set this 2D array as the image for the ImageData object.
@@ -114,7 +127,9 @@ istream &operator>>(istream &input_stream, ImageData &image_data) {
 }
 
 /**
- * . Setter for image, using the data from a file
+ * . Setter for image, using the data from a file.
+ * Used mainly for testing purposes.
+ *
  * @param filename the file from which the data is to be taken.
  */
 void ImageData::SetImageFromFile(const string &filename) {

@@ -4,7 +4,6 @@
 
 #include "naive_bayes_classifying_model.h"
 #include "../utils/utils.h"
-#include <utility>
 
 // This file contains implementations of the functions for
 // NaiveBayesClassifier Model - the class that stores all the probabilities and priors data
@@ -225,10 +224,10 @@ void NaiveBayesClassifyingModel::LoadModelFeatureProbabilityMatrixAndPriorsVecto
 /**
  * . Function that classifies an image into one of the labels.
  *
- * @param image_to_be_classified the image to classifiy into a label
- * @return the classified label value
+ * @param image_to_be_classified the image to classify into a label
+ * @return the classified label value and its posterior probability
  */
-int NaiveBayesClassifyingModel::Classifier(ImageData image_to_be_classified) {
+std::pair<int, double> NaiveBayesClassifyingModel::Classifier(ImageData image_to_be_classified) {
 
   // Declare the vector that will store all the posterior probabilities.
   std::vector<double> posteriors;
@@ -264,9 +263,13 @@ int NaiveBayesClassifyingModel::Classifier(ImageData image_to_be_classified) {
   auto maximum_posterior = std::max_element(std::begin(posteriors), std::end(posteriors));
   int classified_class_val = (int) std::distance(std::begin(posteriors), maximum_posterior);
 
-  // Return the classified class value.
+  // Make a pair out of classified class and its posterior probability.
 
-  return classified_class_val;
+  std::pair<int, double> classified_class_val_and_posterior (classified_class_val, posteriors[classified_class_val]);
+
+  // Return the pair.
+
+  return classified_class_val_and_posterior;
 
 }
 

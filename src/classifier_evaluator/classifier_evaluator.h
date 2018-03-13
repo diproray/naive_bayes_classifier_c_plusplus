@@ -24,6 +24,12 @@ class ClassifierEvaluator {
 
   double confusion_matrix_[10][10];
 
+  // Map from class value to a pair of (index of maximum posterior, maximum posterior)
+  std::map<int, std::pair<unsigned int, double>> class_val_to_max_posterior_index_;
+
+  // Map from class value to a pair of (index of minimum posterior, minimum posterior)
+  std::map<int, std::pair<unsigned int, double>> class_val_to_min_posterior_index_;
+
  public:
 
   // The default constructor.
@@ -42,6 +48,20 @@ class ClassifierEvaluator {
    * @param model the model which is to be evaluated
    */
   void ComputeAccuracyAndConfusionMatrix(NaiveBayesClassifyingModel model);
+
+  /**
+   * . Function that initializes all values in the maps and confusion matrix to zero.
+   *
+   */
+  void InitializeAllToZero();
+
+  /**
+   * . Function that updates the map for each pair of estimated class and posterior read.
+   *
+   * @param pair the pair containing the estimated class and the posterior probability
+   * @param estimated_class the estimated class
+   */
+  void UpdateMaps(std::pair<int, double> &pair, int index);
 
   /**
    * . Function that converts a confusion matrix of number of occurrences of events

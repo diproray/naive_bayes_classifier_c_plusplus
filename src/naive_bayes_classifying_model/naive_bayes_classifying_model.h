@@ -89,9 +89,9 @@ class NaiveBayesClassifyingModel {
    * . Function that classifies an image into one of the labels.
    *
    * @param image_to_be_classified the image to classifiy into a label
-   * @return the classified label value
+   * @return the classified label value, and its posterior probability
    */
-  int Classifier(ImageData image_to_be_classified);
+  std::pair<int, double> Classifier(ImageData image_to_be_classified);
 
 };
 

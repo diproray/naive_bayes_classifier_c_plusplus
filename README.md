@@ -2,9 +2,10 @@
 Naive Bayes Classifier 
 
 # File Storage
-1. All classes are placed into directories of the class name within `src`. All classes have associated `.cpp` and `.h` files.
+1. All classes are placed into directories of the class name within `./src/`. All classes have associated `.cpp` and `.h` files.
 2. Universal utility/helper functions are placed in `./src/utils`. 
-3. The program to be run is in `main.cpp`.
+3. `src/global_variables.h` contains global variables implemented for the purpose of extra-credit features.
+4. The program to be run is in `src/main.cpp`.
 
 # Design
 1. The "smallest" unit of data is `ImageData`. It represents a single image. This class contains an image, encoded as a 2D array of 1s (foreground) and 0s (background).
@@ -15,3 +16,7 @@ Naive Bayes Classifier
 
 # Extra Credit
 All extra credit mentioned in the documentation has been done.
+1. K Cross - Form Validation: Predicting the Value of K that Gives Highest Accuracy for the Classifier - implemented in `./src/classifier_improver/` - can be run through `main`.
+2. Ternary Value Detection: Detect Changes in Accuracy due to Differentiating between `+` and `#` - implemented throughout files in the program - can be run through `main`.
+3. Larger Pixel Size Features: Support for this involves code implemented throughout files in the program - can be run through `main`.
+

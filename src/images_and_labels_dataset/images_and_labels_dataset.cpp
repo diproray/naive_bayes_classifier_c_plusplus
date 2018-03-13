@@ -4,6 +4,7 @@
 
 #include "images_and_labels_dataset.h"
 #include <utility>
+#include <algorithm>
 #include "../utils/utils.cpp"
 
 // This file contains implementations of the functions of the
@@ -135,7 +136,7 @@ double ImagesAndLabelsDataset::CalculateFeatureProbabilityAtIndexForClass(int ro
       // increment the count by 1.
 
       const ImageData &image_object = vector_of_training_image_objects_.at(index);
-      if (image_object.GetImageAs2dArray()[row_index][column_index] == desired_value_at_position) {
+      if (most_common_element_in_feature(row_index, column_index, image_object) == desired_value_at_position) {
         count_of_desired_value_at_desired_position++;
       }
 
@@ -149,6 +150,50 @@ double ImagesAndLabelsDataset::CalculateFeatureProbabilityAtIndexForClass(int ro
           / (2 * laplace_smoothing_factor_ + count_of_occurrences_of_class_value);
 
   return desiredFeatureProbability;
+}
+
+/**
+ * . Function that returns the most common element in a feature of dimensions
+ * pixel_dimension_per_feature * pixel_dimension_per_feature, with (row_index, column_index) as the upper
+ * left corner postion of the feature.
+ *
+ * @param row_index the row index of the upper left corner of the feature
+ * @param column_index the column index of the upper left corner of the feature
+ * @param image_object the image object whose values are being considered
+ * @return an int - the value of the most common element in the feature
+ */
+int ImagesAndLabelsDataset::most_common_element_in_feature(int row_index,
+                                                           int column_index,
+                                                           const ImageData &image_object) {
+
+  // Initialize a vector that will store all the values in the feature.
+  std::vector<int> values;
+
+  // For all positions within the feature, push the value at that position into the vector of values.
+
+  for (int row_number = row_index; row_number < row_index + ::pixel_dimension_per_feature; row_number++) {
+    for (int col_number = column_index; col_number < column_index + ::pixel_dimension_per_feature; col_number++) {
+      values.push_back(image_object.GetImageAs2dArray()[row_number][col_number]);
+    }
+  }
+
+  // Find the value that occurs most in the vector.
+
+  int max_occurrences = 0;
+  int most_occurring_value = values[0];
+
+  for (int index = 0; index < values.size(); index++) {
+    int occurrences = (int) std::count(values.begin(), values.end(), values[index]);
+
+    if (occurrences > max_occurrences) {
+      max_occurrences = occurrences;
+      most_occurring_value = values[index];
+    }
+  }
+
+  // Return the most frequently occurring element in the vector
+
+  return most_occurring_value;
 }
 
 /**

@@ -20,19 +20,33 @@ void NaiveBayesClassifyingModel::GenerateFeatureProbabilityMatrixAndPriorsVector
 
   cout << "Generating the Feature Probability Matrix: " << std::endl;
 
-  // Loop through all positions in the 4D array.
-  // Assign respective values to respective positions.
+  // Loop through the 4D array.
+  // Assign each position value to zero.
 
   for (int row_index = 0; row_index < 28; row_index++) {
     for (int col_index = 0; col_index < 28; col_index++) {
       for (int class_value = 0; class_value < 10; class_value++) {
-        for (int value_at_position = 0; value_at_position < 2; value_at_position++) {
+        for (int value_at_position = 0; value_at_position < ::number_of_different_encodings;
+             value_at_position++) {
+          feature_probability_matrix_[row_index][col_index][class_value][value_at_position] = 0;
+        }
+      }
+    }
+  }
+
+  // Loop through all positions in the 4D array.
+  // Assign respective values to respective positions.
+
+  for (int row_index = 0; row_index < 28; row_index += ::pixel_dimension_per_feature) {
+    for (int col_index = 0; col_index < 28; col_index += ::pixel_dimension_per_feature) {
+      for (int class_value = 0; class_value < 10; class_value++) {
+        for (int value_at_position = 0; value_at_position < ::number_of_different_encodings;
+             value_at_position++) {
 
           feature_probability_matrix_[row_index][col_index][class_value][value_at_position] =
               training_data.CalculateFeatureProbabilityAtIndexForClass(row_index,
                                                                        col_index,
-                                                                       class_value,
-                                                                       value_at_position);
+                                                                       class_value, value_at_position);
 
         }
       }
@@ -88,7 +102,8 @@ void NaiveBayesClassifyingModel::SaveModelFeatureProbabilityMatrixAndPriorsVecto
   for (int row_index = 0; row_index < 28; row_index++) {
     for (int col_index = 0; col_index < 28; col_index++) {
       for (int class_value = 0; class_value < 10; class_value++) {
-        for (int value_at_position = 0; value_at_position < 2; value_at_position++) {
+        for (int value_at_position = 0; value_at_position < ::number_of_different_encodings;
+             value_at_position++) {
 
           fout << feature_probability_matrix_[row_index][col_index][class_value][value_at_position] << std::endl;
 
@@ -158,7 +173,8 @@ void NaiveBayesClassifyingModel::LoadModelFeatureProbabilityMatrixAndPriorsVecto
   for (int row_index = 0; row_index < 28; row_index++) {
     for (int col_index = 0; col_index < 28; col_index++) {
       for (int class_value = 0; class_value < 10; class_value++) {
-        for (int value_at_position = 0; value_at_position < 2; value_at_position++) {
+        for (int value_at_position = 0; value_at_position < ::number_of_different_encodings;
+             value_at_position++) {
 
           double probability;
           fin >> probability;
@@ -227,8 +243,8 @@ int NaiveBayesClassifyingModel::Classifier(ImageData image_to_be_classified) {
     // Add log(class = c) to the posterior probability.
     posterior += log(vector_of_priors_.at(class_val));
 
-    for (int row_index = 0; row_index < 28; row_index++) {
-      for (int col_index = 0; col_index < 28; col_index++) {
+    for (int row_index = 0; row_index < 28; row_index += ::pixel_dimension_per_feature) {
+      for (int col_index = 0; col_index < 28; col_index += ::pixel_dimension_per_feature) {
 
         // Add P(F(i, j) = f | class = c) to the posterior probability.
 

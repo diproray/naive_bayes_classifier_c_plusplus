@@ -4,6 +4,7 @@
 
 #include <fstream>
 #include "image_data.h"
+#include "../global_variables.h"
 
 // This file contains implementations of the functions of the
 // ImageData class (Class that encapsulates data pertaining to an image and relevant functions
@@ -113,17 +114,31 @@ istream &operator>>(istream &input_stream, ImageData &image_data) {
     }
 
     // For each line,
+    // If number_of_different_encodings is 2,
     // Iterate through the entire line, placing value 1 if the character is '#' or '+'.
+    // Else,
+    // Iterate through the entire line, placing value 1 if the character is '+' or 2 if '#'.
+    //
     // Otherwise, the value remains zero.
 
     for (unsigned long column_index = 0; column_index < line.size(); column_index++) {
 
-      if (line.at(column_index) == '+' || line.at(column_index) == '#') {
-        image[line_number][column_index] = 1;
+      if (::number_of_different_encodings == 2) {
+
+        if (line.at(column_index) == '+' || line.at(column_index) == '#') {
+          image[line_number][column_index] = 1;
+        }
+
+      } else {
+
+        if (line.at(column_index) == '+') {
+          image[line_number][column_index] = 1;
+        } else if (line.at(column_index) == '#') {
+          image[line_number][column_index] = 2;
+        }
+
       }
-
     }
-
   }
 
   // Set this 2D array as the image for the ImageData object.

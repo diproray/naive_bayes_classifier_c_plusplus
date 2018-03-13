@@ -9,6 +9,7 @@
 #include "naive_bayes_classifying_model/naive_bayes_classifying_model.cpp"
 #include "classifier_evaluator/classifier_evaluator.cpp"
 #include "./classifier_improver/classifier_improver.cpp"
+#include "global_variables.h"
 
 void interface();
 
@@ -46,7 +47,7 @@ void interface() {
 
       if (command == "yes") {
 
-        model = NaiveBayesClassifyingModel("../data/trainingimages", "../data/traininglabels", 0.5);
+        model = NaiveBayesClassifyingModel("../data/trainingimages", "../data/traininglabels", 3);
 
       } else {
 
@@ -82,6 +83,34 @@ void interface() {
     } else if (command == "exit") {
 
       exit_interface = true;
+    } else if (command == "reset-encodings") {
+
+      cout << '\n' << "How many encodings would you like for the image as a 2D array? 2 or 3?" << '\n';
+
+      int encodings;
+      cin >> encodings;
+
+      if (encodings == 2 || encodings == 3) {
+        ::number_of_different_encodings = encodings;
+        cout << "The new number of different encodings is: " << ::number_of_different_encodings << ".\n";
+      } else {
+        cout << "Inavlid entry, please try again.";
+      }
+
+    } else if (command == "reset-pixelsfeature") {
+
+      cout << '\n' << "How many pixels would you like to be counted in a feature? Enter an even number < 14, or 1." << '\n';
+
+      int pixel_dimensions;
+      cin >> pixel_dimensions;
+
+      if ((pixel_dimensions < 14 && pixel_dimensions % 2 == 0) || (pixel_dimensions == 1)) {
+        ::pixel_dimension_per_feature = pixel_dimensions;
+        cout << "The new number of pixels in a feature is: " << ::pixel_dimension_per_feature << ".\n";
+      } else {
+        cout << "Inavlid entry, please try again.";
+      }
+
     } else {
 
       cout << '\n' << "I do not understand the command.";

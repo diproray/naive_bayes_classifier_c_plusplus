@@ -10,6 +10,7 @@
 #include <string>
 #include <vector>
 #include <iostream>
+#include "../global_variables.h"
 
 using std::cin;
 using std::cout;

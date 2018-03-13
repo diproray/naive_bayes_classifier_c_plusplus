@@ -79,6 +79,18 @@ class ImagesAndLabelsDataset {
                                                     int value_at_position);
 
   /**
+   * . Function that returns the most common element in a feature of dimensions
+   * pixel_dimension_per_feature * pixel_dimension_per_feature, with (row_index, column_index) as the upper
+   * left corner postion of the feature.
+   *
+   * @param row_index the row index of the upper left corner of the feature
+   * @param column_index the column index of the upper left corner of the feature
+   * @param image_object the image object whose values are being considered
+   * @return an int - the value of the most common element in the feature
+   */
+  int most_common_element_in_feature(int row_index, int column_index, const ImageData &image_object);
+
+  /**
    * . Function that calculates the probability of finding a particular value among the training labels,
    * i.e. the probability of finding class_value among values in vector_of_training_image_labels_.
    *

@@ -19,7 +19,7 @@ class NaiveBayesClassifyingModel {
  private:
 
   // The 4 - dimensional matrix storing the probabilities of all possible features.
-  double feature_probability_matrix_[28][28][10][2];
+  double feature_probability_matrix_[28][28][10][3];
 
   // The vector containing the probabilities of all possible class/label values.
   std::vector<double> vector_of_priors_;

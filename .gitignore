@@ -3,6 +3,7 @@
 
 # Data Files
 data/*
+tests/data/*
 
 # Compiled Object files
 *.slo

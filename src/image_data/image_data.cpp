@@ -34,7 +34,7 @@ void ImageData::SetImageAs2dArray(int image[kImageSize_][kImageSize_]) {
 
 /**
  * . Getter for image_as_2d_array_
- * @return  the image, as a 2D array, with each value as 0 or 1
+ * @return  the pointer to the image, as a 2D array, with each value as 0 or 1 (or 2)
  */
 int **ImageData::GetImageAs2dArray() const {
 
@@ -166,4 +166,25 @@ void ImageData::SetImageFromFile(const string &filename) {
   // Set the object's image to the 2D array of the object the file data was read into.
   SetImageAs2dArray(image.image_as_2d_array_);
 
+}
+
+/**
+ * . Equality operator overloaded function.
+ * Used mainly for testing.
+ *
+ * @param other_image_object the image object to be compared with
+ * @return a boolean value - true or false
+ */
+bool ImageData::operator==(ImageData other_image_object) {
+
+  for (int row_index = 0; row_index < kImageSize_; row_index++) {
+    for (int col_index = 0; col_index < kImageSize_; col_index++) {
+      if (image_as_2d_array_[row_index][col_index]
+          != other_image_object.image_as_2d_array_[row_index][col_index]) {
+        return false;
+      }
+    }
+  }
+
+  return true;
 }

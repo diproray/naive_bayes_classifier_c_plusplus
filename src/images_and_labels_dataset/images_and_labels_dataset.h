@@ -49,7 +49,7 @@ class ImagesAndLabelsDataset {
    * of the TrainingData object.
    * @param filename the file from which label data are to be read
    */
-  void GenerateVectorOfLabelsFromFileData(string filename);
+  bool GenerateVectorOfLabelsFromFileData(string filename);
 
   /**
     * . Function that reads data from a file that contains images,
@@ -57,7 +57,7 @@ class ImagesAndLabelsDataset {
     * of the TrainingData object.
     * @param filename the file from which images are to be read
     */
-  void GenerateVectorOfImagesFromFileData(string filename);
+  bool GenerateVectorOfImagesFromFileData(string filename);
 
   /**
    * . Function that calculates the probability of a feature for the classifier, i.e.

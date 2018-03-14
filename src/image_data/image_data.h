@@ -58,6 +58,15 @@ class ImageData {
  */
   void SetImageFromFile(const string &filename);
 
+  /**
+   * . Equality operator overloaded function.
+   * Used mainly for testing.
+   *
+   * @param other_image_object the image object to be compared with
+   * @return a boolean value - true or false
+   */
+  bool operator==(ImageData other_image_object);
+
 /**
  * . Function that overloads the input >> operator to read an entire image and store it into
  * a 2D array.

@@ -20,7 +20,11 @@
  * of the TrainingData object.
  * @param filename the file from which label data are to be read
  */
-void ImagesAndLabelsDataset::GenerateVectorOfLabelsFromFileData(string filename) {
+bool ImagesAndLabelsDataset::GenerateVectorOfLabelsFromFileData(string filename) {
+
+  if (filename.empty()) {
+    return false;
+  }
 
   // Initialise an ifstream and open the desired file.
 
@@ -32,7 +36,7 @@ void ImagesAndLabelsDataset::GenerateVectorOfLabelsFromFileData(string filename)
 
   if (!file_reader) {
     cout << "File is invalid.";
-    exit;
+    return false;
   }
 
   // If the file exists,
@@ -47,6 +51,8 @@ void ImagesAndLabelsDataset::GenerateVectorOfLabelsFromFileData(string filename)
 
   // Close the ifstream. [Deallocation of resources]
   file_reader.close();
+
+  return true;
 }
 
 /**
@@ -55,7 +61,11 @@ void ImagesAndLabelsDataset::GenerateVectorOfLabelsFromFileData(string filename)
  * of the TrainingData object.
  * @param filename the file from which images are to be read
  */
-void ImagesAndLabelsDataset::GenerateVectorOfImagesFromFileData(string filename) {
+bool ImagesAndLabelsDataset::GenerateVectorOfImagesFromFileData(string filename) {
+
+  if (filename.empty()) {
+    return false;
+  }
 
   // Initialise an ifstream and open the desired file.
 
@@ -67,7 +77,7 @@ void ImagesAndLabelsDataset::GenerateVectorOfImagesFromFileData(string filename)
 
   if (!file_reader) {
     cout << "File is invalid.";
-    exit;
+    return false;
   }
 
   // From the file,
@@ -94,6 +104,7 @@ void ImagesAndLabelsDataset::GenerateVectorOfImagesFromFileData(string filename)
   // a blank image gets added. So, I just remove that last object.)
 
   vector_of_training_image_objects_.pop_back();
+  return true;
 }
 
 /**

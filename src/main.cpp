@@ -47,7 +47,7 @@ void interface() {
 
       if (command == "yes") {
 
-        model = NaiveBayesClassifyingModel("../data/trainingimages", "../data/traininglabels", 3);
+        model = NaiveBayesClassifyingModel("../data/trainingimages", "../data/traininglabels", 0.1);
 
       } else {
 

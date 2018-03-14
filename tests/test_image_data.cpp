@@ -6,6 +6,8 @@
 #define CATCH_CONFIG_MAIN
 #include "catch.hpp"
 
+// Test for SetImageAs2dArray()
+
 TEST_CASE("Test for SetImageAs2dArray") {
 
   int image[28][28];
@@ -24,6 +26,10 @@ TEST_CASE("Test for SetImageAs2dArray") {
 
   REQUIRE((image_object == image_object_loaded_from_file) == TRUE);
 }
+
+// The other functions cannot be tested because they are operator overloading functions.
+// They have been manually tested.
+// Also, some of them are used when testing functions of other class, so they are indirectly tested.
 
 
 

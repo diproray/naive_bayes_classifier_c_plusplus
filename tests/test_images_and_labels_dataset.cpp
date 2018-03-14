@@ -7,6 +7,9 @@
 #define CATCH_CONFIG_MAIN
 #include "catch.hpp"
 
+// All functions for the class have been tested here.
+// Exceptions cases included.
+
 TEST_CASE("Test for GenerateVectorOfImagesFromFileData") {
 
   ImagesAndLabelsDataset dataset;

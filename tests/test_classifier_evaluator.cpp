@@ -6,6 +6,8 @@
 #define CATCH_CONFIG_MAIN
 #include "catch.hpp"
 
+// Test for ComputeAccuracyAndConfusionMatrix()
+
 TEST_CASE("Test for ComputeAccuracyAndConfusionMatrix") {
 
   NaiveBayesClassifyingModel model;
@@ -15,3 +17,6 @@ TEST_CASE("Test for ComputeAccuracyAndConfusionMatrix") {
 
   REQUIRE(evaluator.GetAccuracyPercentage() == 77.3);
 }
+
+// This function calls other functions, so they are indirectly tested.
+// The output overloading function has been manually tested.

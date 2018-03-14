@@ -7,12 +7,19 @@
 #define CATCH_CONFIG_MAIN
 #include "catch.hpp"
 
+// All functions of the classes have been tested here.
+// Since the input of these functions are usually none or ImagesAndLabelsDataset object,
+// there aren't exactly any exceptions to check for.
+// Exceptions occurring during the execution of the function result in the function printing an error message
+// and returning.
+
 TEST_CASE("Test for GenerateFeatureProbabilityMatrixAndPriorsVector") {
 
-  NaiveBayesClassifyingModel model = NaiveBayesClassifyingModel("../data/trainingimages", "../data/traininglabels", 0.1);
+  NaiveBayesClassifyingModel
+      model = NaiveBayesClassifyingModel("../data/trainingimages", "../data/traininglabels", 0.1);
 
-  REQUIRE( model.GetValueFromProbabilityMatrix(0, 0, 0, 0) == 0.999791);
-  REQUIRE( model.GetValueFromPriorsVector(0) == 0.0958);
+  REQUIRE(model.GetValueFromProbabilityMatrix(0, 0, 0, 0) == 0.999791);
+  REQUIRE(model.GetValueFromPriorsVector(0) == 0.0958);
 
 }
 
@@ -21,8 +28,8 @@ TEST_CASE("Test for LoadModelFeatureProbabilityMatrixAndPriorsVectorFromFiles") 
   NaiveBayesClassifyingModel model;
 
   model.LoadModelFeatureProbabilityMatrixAndPriorsVectorFromFiles("../data/probabilities", "../data/priors");
-  REQUIRE( model.GetValueFromProbabilityMatrix(0, 0, 0, 0) == 0.999791);
-  REQUIRE( model.GetValueFromPriorsVector(0) == 0.0958);
+  REQUIRE(model.GetValueFromProbabilityMatrix(0, 0, 0, 0) == 0.999791);
+  REQUIRE(model.GetValueFromPriorsVector(0) == 0.0958);
 
 }
 

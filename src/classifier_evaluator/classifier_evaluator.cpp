@@ -26,7 +26,7 @@ static const double kLargePositiveDouble = 10000.00;
  *
  * @param model the model which is to be evaluated
  */
-void ClassifierEvaluator::ComputeAccuracyAndConfusionMatrix(NaiveBayesClassifyingModel model) {
+void ClassifierEvaluator::ComputeAccuracyAndConfusionMatrix(NaiveBayesClassifier model) {
 
   // Obtain the test dataset of images and labels.
   ImagesAndLabelsDataset test_data = ImagesAndLabelsDataset("../data/testimages", "../data/testlabels", 0.5);
@@ -218,7 +218,7 @@ ostream &operator<<(ostream &output_stream, const ClassifierEvaluator &classifie
  *
  * @param model the classifier model to be evaluated
  */
-ClassifierEvaluator::ClassifierEvaluator(NaiveBayesClassifyingModel model) {
+ClassifierEvaluator::ClassifierEvaluator(NaiveBayesClassifier model) {
 
   // Compute accuracy % and the confusion matrix for the model.
 

@@ -10,7 +10,7 @@
 
 TEST_CASE("Test for ComputeAccuracyAndConfusionMatrix") {
 
-  NaiveBayesClassifyingModel model;
+  NaiveBayesClassifier model;
   model.LoadModelFeatureProbabilityMatrixAndPriorsVectorFromFiles("../data/probabilities", "../data/priors");
 
   ClassifierEvaluator evaluator = ClassifierEvaluator(model);

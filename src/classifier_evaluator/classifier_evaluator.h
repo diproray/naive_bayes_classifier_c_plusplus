@@ -5,7 +5,7 @@
 #ifndef NAIVEBAYES_EVALUATOR_H
 #define NAIVEBAYES_EVALUATOR_H
 
-#include "../naive_bayes_classifying_model/naive_bayes_classifying_model.h"
+#include "../naive_bayes_classifying_model/naive_bayes_classifier.h"
 
 /**
  * . Class that evaluates the accuracy of a classifier.
@@ -40,14 +40,14 @@ class ClassifierEvaluator {
    *
    * @param model the classifier model to be evaluated
    */
-  explicit ClassifierEvaluator(NaiveBayesClassifyingModel model);
+  explicit ClassifierEvaluator(NaiveBayesClassifier model);
 
   /**
    * . Function that computes the accuracy and confusion matrix for a given model.
    *
    * @param model the model which is to be evaluated
    */
-  void ComputeAccuracyAndConfusionMatrix(NaiveBayesClassifyingModel model);
+  void ComputeAccuracyAndConfusionMatrix(NaiveBayesClassifier model);
 
   /**
    * . Function that initializes all values in the maps and confusion matrix to zero.

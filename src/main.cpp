@@ -6,7 +6,7 @@
 #include <iomanip>
 #include <stdio.h>
 #include <string.h>
-#include "naive_bayes_classifying_model/naive_bayes_classifying_model.cpp"
+#include "naive_bayes_classifying_model/naive_bayes_classifier.cpp"
 #include "classifier_evaluator/classifier_evaluator.cpp"
 #include "./classifier_improver/classifier_improver.cpp"
 #include "global_variables.h"
@@ -40,7 +40,7 @@ void interface() {
 
   // Declare the classifier, evaluator, and improver.
 
-  NaiveBayesClassifyingModel model;
+  NaiveBayesClassifier model;
   ClassifierEvaluator evaluator;
   ClassifierImprover improver;
 
@@ -65,7 +65,7 @@ void interface() {
 
       if (command == kYesCommand) {
 
-        model = NaiveBayesClassifyingModel("../data/trainingimages", "../data/traininglabels", 0.1);
+        model = NaiveBayesClassifier("../data/trainingimages", "../data/traininglabels", 0.1);
 
       } else {
 
@@ -79,7 +79,7 @@ void interface() {
         double value;
         cin >> value;
 
-        model = NaiveBayesClassifyingModel(filename_for_images, filename_for_labels, value);
+        model = NaiveBayesClassifier(filename_for_images, filename_for_labels, value);
       }
     } else if (command == kSaveCommand) {
 

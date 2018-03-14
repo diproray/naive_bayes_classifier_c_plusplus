@@ -24,7 +24,7 @@ double ClassifierImprover::FindBestKValue() {
 
     // Evaluate the model created with k as the Laplace Smoothing Factor.
     ClassifierEvaluator evaluator =
-        ClassifierEvaluator(NaiveBayesClassifyingModel("../data/trainingimages", "../data/traininglabels", k));
+        ClassifierEvaluator(NaiveBayesClassifier("../data/trainingimages", "../data/traininglabels", k));
 
     // Get the accuracy percentage for this classifier.
     double current_accuracy_percentage = evaluator.GetAccuracyPercentage();

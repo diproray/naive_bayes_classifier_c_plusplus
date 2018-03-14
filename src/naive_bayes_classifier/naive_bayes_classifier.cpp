@@ -2,7 +2,7 @@
 // Created by Dipro Ray on 3/12/18.
 //
 
-#include "naive_bayes_classifying_model.h"
+#include "naive_bayes_classifier.h"
 #include "../utils/utils.h"
 
 // This file contains implementations of the functions for
@@ -15,7 +15,7 @@
  *
  * @param training_data the ImagesAndLabels dataset used
  */
-void NaiveBayesClassifyingModel::GenerateFeatureProbabilityMatrixAndPriorsVector(ImagesAndLabelsDataset &training_data) {
+void NaiveBayesClassifier::GenerateFeatureProbabilityMatrixAndPriorsVector(ImagesAndLabelsDataset &training_data) {
 
   cout << "Generating the Feature Probability Matrix: " << std::endl;
 
@@ -66,7 +66,7 @@ void NaiveBayesClassifyingModel::GenerateFeatureProbabilityMatrixAndPriorsVector
   }
 
   // Print a status message.
-  cout << "Feature Probability Matrix and Priors Vector generated for the NaiveBayesClassifyingModel." << '\n';
+  cout << "Feature Probability Matrix and Priors Vector generated for the NaiveBayesClassifier." << '\n';
 
 }
 
@@ -76,7 +76,7 @@ void NaiveBayesClassifyingModel::GenerateFeatureProbabilityMatrixAndPriorsVector
  * @param filename_for_probability_matrix the file path to the file in which the probabilities are to be stored
  * @param filename_for_priors_vector the file path to the file in which the priors are to be stored
  */
-void NaiveBayesClassifyingModel::SaveModelFeatureProbabilityMatrixAndPriorsVectorToFiles(string filename_for_probability_matrix,
+void NaiveBayesClassifier::SaveModelFeatureProbabilityMatrixAndPriorsVectorToFiles(string filename_for_probability_matrix,
                                                                                          string filename_for_priors_vector) {
 
   // Initialize an ofstream.
@@ -148,7 +148,7 @@ void NaiveBayesClassifyingModel::SaveModelFeatureProbabilityMatrixAndPriorsVecto
  * @param filename_for_probability_matrix the file path to the file in which the probabilities were stored previously
  * @param filename_for_priors_vector the file path to the file in which the priors were stored previously
  */
-void NaiveBayesClassifyingModel::LoadModelFeatureProbabilityMatrixAndPriorsVectorFromFiles(string filename_for_probability_matrix,
+void NaiveBayesClassifier::LoadModelFeatureProbabilityMatrixAndPriorsVectorFromFiles(string filename_for_probability_matrix,
                                                                                            string filename_for_priors_vector) {
 
   // Initialize an ifstream.
@@ -218,7 +218,7 @@ void NaiveBayesClassifyingModel::LoadModelFeatureProbabilityMatrixAndPriorsVecto
 
   cout << "Loaded Feature Probability Matrix from: " << filename_for_probability_matrix << '\n';
   cout << "Loaded Priors Vector from: " << filename_for_priors_vector << '\n';
-  cout << "Your NaiveBayesClassifyingModel is now loaded" << '\n';
+  cout << "Your NaiveBayesClassifier is now loaded" << '\n';
 }
 
 /**
@@ -227,7 +227,7 @@ void NaiveBayesClassifyingModel::LoadModelFeatureProbabilityMatrixAndPriorsVecto
  * @param image_to_be_classified the image to classify into a label
  * @return the classified label value and its posterior probability
  */
-std::pair<int, double> NaiveBayesClassifyingModel::Classifier(ImageData image_to_be_classified) {
+std::pair<int, double> NaiveBayesClassifier::Classifier(ImageData image_to_be_classified) {
 
   // Declare the vector that will store all the posterior probabilities.
   std::vector<double> posteriors;
@@ -281,7 +281,7 @@ std::pair<int, double> NaiveBayesClassifyingModel::Classifier(ImageData image_to
  * @param filename_for_stored_priors_vector the file path to the file in which the priors were stored previously
  * @param method set to "load". This argument isn't actually used. Placed to differentiate the constructors.
  */
-NaiveBayesClassifyingModel::NaiveBayesClassifyingModel(string filename_for_stored_probabilities,
+NaiveBayesClassifier::NaiveBayesClassifier(string filename_for_stored_probabilities,
                                                        string filename_for_stored_priors_vector,
                                                        string method) {
 
@@ -299,7 +299,7 @@ NaiveBayesClassifyingModel::NaiveBayesClassifyingModel(string filename_for_store
  * @param filename_for_images the file path to the file in which the training images are stored
  * @param filename_for_labels the file path to the file in which the training images'labels are stored.
  */
-NaiveBayesClassifyingModel::NaiveBayesClassifyingModel(string filename_for_images,
+NaiveBayesClassifier::NaiveBayesClassifier(string filename_for_images,
                                                        string filename_for_labels,
                                                        double laplace_smoothing_factor) {
 
@@ -312,12 +312,12 @@ NaiveBayesClassifyingModel::NaiveBayesClassifyingModel(string filename_for_image
   GenerateFeatureProbabilityMatrixAndPriorsVector(training_data);
 }
 
-double NaiveBayesClassifyingModel::GetValueFromProbabilityMatrix(int row_index, int col_index, int class_value, int value_at_position) {
+double NaiveBayesClassifier::GetValueFromProbabilityMatrix(int row_index, int col_index, int class_value, int value_at_position) {
 
   return feature_probability_matrix_[row_index][col_index][class_value][value_at_position];
 }
 
-double NaiveBayesClassifyingModel::GetValueFromPriorsVector(int class_val) {
+double NaiveBayesClassifier::GetValueFromPriorsVector(int class_val) {
 
   return vector_of_priors_[class_val];
 }

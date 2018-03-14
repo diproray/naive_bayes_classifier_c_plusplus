@@ -10,7 +10,7 @@ Naive Bayes Classifier
 # Design
 1. The "smallest" unit of data is `ImageData`. It represents a single image. This class contains an image, encoded as a 2D array of 1s (foreground) and 0s (background).
 2. The next bigger unit of data is `ImagesAndLabelsDataset`. It represents a dataset of images and labels. This class contains `vectors` of `ImageData` objects, and of the image labels.
-3. Another unit of data is `NaiveBayesClassifyingModel`. It represents a single Naive Bayes Classifier. This class contains `array` of probabilities and `vector` of priors.
+3. Another unit of data is `NaiveBayesClassifier`. It represents a single Naive Bayes Classifier. This class contains `array` of probabilities and `vector` of priors.
 4. The next class is `ClassifierEvaluator`. It contains an `array` representing the confusion matrix of a classifier, and a `double` representing accuracy percentage of a classifier.
 5. The next class is `ClassifierImprover`. It contains functions that try to improve the accuracy of a model.
 

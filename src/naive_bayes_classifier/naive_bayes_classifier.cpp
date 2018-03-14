@@ -218,7 +218,7 @@ void NaiveBayesClassifier::LoadModelFeatureProbabilityMatrixAndPriorsVectorFromF
 
   cout << "Loaded Feature Probability Matrix from: " << filename_for_probability_matrix << '\n';
   cout << "Loaded Priors Vector from: " << filename_for_priors_vector << '\n';
-  cout << "Your NaiveBayesClassifier is now loaded" << '\n';
+  cout << "Your Naive Bayes Classifier is now loaded" << '\n';
 }
 
 /**

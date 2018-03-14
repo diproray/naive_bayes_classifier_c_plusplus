@@ -30,8 +30,10 @@ TEST_CASE("Test for Classifier") {
 
   ImageData image;
   image.SetImageFromFile("./data/test_single_image");
+
   NaiveBayesClassifyingModel model;
   model.LoadModelFeatureProbabilityMatrixAndPriorsVectorFromFiles("../data/probabilities", "../data/priors");
+
   int value = model.Classifier(image).first;
 
   REQUIRE(value == 5);

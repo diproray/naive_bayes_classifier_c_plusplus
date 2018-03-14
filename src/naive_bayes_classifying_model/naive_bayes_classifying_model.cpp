@@ -311,3 +311,13 @@ NaiveBayesClassifyingModel::NaiveBayesClassifyingModel(string filename_for_image
   // Generate probability matrix and priors vector.
   GenerateFeatureProbabilityMatrixAndPriorsVector(training_data);
 }
+
+double NaiveBayesClassifyingModel::GetValueFromProbabilityMatrix(int row_index, int col_index, int class_value, int value_at_position) {
+
+  return feature_probability_matrix_[row_index][col_index][class_value][value_at_position];
+}
+
+double NaiveBayesClassifyingModel::GetValueFromPriorsVector(int class_val) {
+
+  return vector_of_priors_[class_val];
+}

@@ -93,6 +93,8 @@ class NaiveBayesClassifyingModel {
    */
   std::pair<int, double> Classifier(ImageData image_to_be_classified);
 
+  double GetValueFromProbabilityMatrix(int row_index, int col_index, int class_value, int value_at_position);
+  double GetValueFromPriorsVector(int class_val);
 };
 
 #endif //NAIVEBAYES_MODEL_H

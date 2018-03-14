@@ -42,35 +42,35 @@ TEST_CASE("Test for GenerateVectorOfLabelsFromFileData", "[exception]") {
   REQUIRE(task_successful == FALSE);
 }
 
-TEST_CASE("Test for CalculateFeatureProbabilityAtIndexForClass", ) {
+TEST_CASE("Test for CalculateFeatureProbabilityAtIndexForClass",) {
 
   ImagesAndLabelsDataset dataset;
   dataset.GenerateVectorOfImagesFromFileData("../data/traininglabels");
 
-  double probability = dataset.CalculateFeatureProbabilityAtIndexForClass(0,0,0,0);
-  REQUIRE( probability == 0.9997);
+  double probability = dataset.CalculateFeatureProbabilityAtIndexForClass(0, 0, 0, 0);
+  REQUIRE(probability == 0.9997);
 }
 
-TEST_CASE("Test for CalculateProbabilityOfClassInLabels", ) {
+TEST_CASE("Test for CalculateProbabilityOfClassInLabels",) {
 
   ImagesAndLabelsDataset dataset;
   dataset.GenerateVectorOfLabelsFromFileData("../data/traininglabels");
 
   double probability = dataset.CalculateProbabilityOfClassInLabels(0);
-  REQUIRE( probability == 0.0958);
+  REQUIRE(probability == 0.0958);
 }
 
-TEST_CASE("Test for GenerateVectorOfPriorsForLabels", ) {
+TEST_CASE("Test for GenerateVectorOfPriorsForLabels",) {
 
   ImagesAndLabelsDataset dataset;
   dataset.GenerateVectorOfLabelsFromFileData("../data/traininglabels");
   std::vector<double> priors = dataset.GenerateVectorOfPriorsForLabels();
 
   double first_prior = priors.at(0);
-  REQUIRE( first_prior == 0.0958);
+  REQUIRE(first_prior == 0.0958);
 }
 
-TEST_CASE("Test for GetVectorOfImages", ) {
+TEST_CASE("Test for GetVectorOfImages",) {
 
   ImagesAndLabelsDataset dataset;
   dataset.GenerateVectorOfImagesFromFileData("../data/trainingimages");
@@ -79,10 +79,10 @@ TEST_CASE("Test for GetVectorOfImages", ) {
   ImageData image;
   image.SetImageFromFile("./data/test_single_image");
 
-  REQUIRE( images.at(0) == image);
+  REQUIRE(images.at(0) == image);
 }
 
-TEST_CASE("Test for GetVectorOfLabels", ) {
+TEST_CASE("Test for GetVectorOfLabels",) {
 
   ImagesAndLabelsDataset dataset;
   dataset.GenerateVectorOfLabelsFromFileData("../data/traininglabels");

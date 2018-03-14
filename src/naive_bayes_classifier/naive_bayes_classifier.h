@@ -44,8 +44,8 @@ class NaiveBayesClassifier {
    * @param laplace_smoothing_factor the Laplace smoothing factor
    */
   explicit NaiveBayesClassifier(string filename_for_images,
-                                      string filename_for_labels,
-                                      double laplace_smoothing_factor);
+                                string filename_for_labels,
+                                double laplace_smoothing_factor);
 
   /**
    * . Constructor for a NaiveBayesClassifyingModel object, in which probabilities and priors
@@ -56,8 +56,8 @@ class NaiveBayesClassifier {
    * @param method set to "load". This argument isn't actually used. Placed to differentiate the constructors.
    */
   explicit NaiveBayesClassifier(string filename_for_stored_probabilities,
-                                      string filename_for_stored_priors_vector,
-                                      string method);
+                                string filename_for_stored_priors_vector,
+                                string method);
 
   /**
    * . Function that generates the features probabilities matrix for the model.

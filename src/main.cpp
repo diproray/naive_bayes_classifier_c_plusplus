@@ -131,7 +131,8 @@ void interface() {
 
       // Ask for the new pixel feature size.
 
-      cout << '\n' << "How many pixels would you like to be counted in a feature? Enter an even number < 14, or 1." << '\n';
+      cout << '\n' << "How many pixels would you like to be counted in a feature? Enter an even number < 14, or 1."
+           << '\n';
 
       int pixel_dimensions;
       cin >> pixel_dimensions;

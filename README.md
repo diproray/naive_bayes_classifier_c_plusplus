@@ -1,5 +1,4 @@
-# naivebayes
-Naive Bayes Classifier 
+# Naive Bayes Classifier 
 
 # File Storage
 1. All classes are placed into directories of the class name within `./src/`. All classes have associated `.cpp` and `.h` files.
@@ -14,8 +13,7 @@ Naive Bayes Classifier
 4. The next class is `ClassifierEvaluator`. It contains an `array` representing the confusion matrix of a classifier, and a `double` representing accuracy percentage of a classifier.
 5. The next class is `ClassifierImprover`. It contains functions that try to improve the accuracy of a model.
 
-# Extra Credit
-All extra credit mentioned in the documentation has been done.
+# Features
 1. K Cross - Form Validation: Predicting the Value of K that Gives Highest Accuracy for the Classifier - implemented in `./src/classifier_improver/` - can be run through `main`.
 2. Ternary Value Detection: Detect Changes in Accuracy due to Differentiating between `+` and `#` - implemented throughout files in the program - can be run through `main`.
 3. Larger Pixel Size Features: Support for this involves code implemented throughout files in the program - can be run through `main`.
